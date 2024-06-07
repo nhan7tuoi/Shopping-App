@@ -1,4 +1,10 @@
 module.exports = {
-    assets: ['./assets/fonts/'],
-}
-//add fonts run npx react-native-asset
+  dependencies: {
+    'react-native-vector-icons': {
+      platforms: {
+        ios: null,
+      },
+    },
+  },
+  assets: ['./assets/fonts'],
+};
