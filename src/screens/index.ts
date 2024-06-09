@@ -6,6 +6,9 @@ import ProfileScreen from "./profiles/ProfileScreen"
 import SplashScreen from "./SplashScreen"
 import HomeLogin from "./auth/HomeLogin"
 import SwiperScreen from "./auth/SwiperScreen"
+import SwiperOne from "./auth/Swipers/SwiperOne"
+import SwiperTwo from "./auth/Swipers/SwiperTwo"
+import SwiperThree from "./auth/Swipers/SwiperThree"
 
 
 export {
@@ -16,6 +19,9 @@ export {
     ProfileScreen,
     SplashScreen,
     HomeLogin,
-    SwiperScreen
+    SwiperScreen,
+    SwiperOne,
+    SwiperTwo,
+    SwiperThree
 
 }

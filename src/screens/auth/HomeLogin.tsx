@@ -3,6 +3,7 @@ import React from 'react';
 import { ImageBackground, View } from 'react-native';
 import { colors } from '../../constants/colors';
 import { globalStyles } from '../../styles/globalSyles';
+import { fontFamilies } from '../../constants/fontFamilies';
 
 const HomeLogin = ({navigation}:any) => {
   return (
@@ -20,10 +21,11 @@ const HomeLogin = ({navigation}:any) => {
         <Button
           title="Login"
           onPress={() => {
-            navigation.navigate('SwiperScreen');
+            navigation.navigate('SwiperScreen',{authState:'LoginScreen'});
           }}
           textStyleProps={{
             fontWeight: 'bold',
+            fontFamily:fontFamilies.poppinsBold
           }}
         />
         <Button
@@ -31,7 +33,7 @@ const HomeLogin = ({navigation}:any) => {
           color="transparent"
           title="Sign up"
           onPress={() => {
-            navigation.navigate('SwiperScreen');
+            navigation.navigate('SwiperScreen',{authState:'SignUpScreen'});
           }}
           styles={{
             borderWidth: 1,
@@ -39,6 +41,7 @@ const HomeLogin = ({navigation}:any) => {
           }}
           textStyleProps={{
             fontWeight: 'bold',
+            fontFamily:fontFamilies.poppinsBold
           }}
         />
       </View>

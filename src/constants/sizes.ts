@@ -6,6 +6,6 @@ export const sizes = {
     bigTitle:18,
     title:16,
     text: 14,
-    description: 12,
+    description: 15,
     icon:20,
 }
