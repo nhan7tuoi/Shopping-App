@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:707827092958:android:958c837b16fcc4cfd7614f",
+        "mobilesdk_app_id": "1:707827092958:android:36533dce8a9afadfd7614f",
         "android_client_info": {
-          "package_name": "com.shopping"
+          "package_name": "com.nhan7tuoi.shopping"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "707827092958-qn2q7kcqa4favfj443nrb8le2m8teflq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nhan7tuoi.shopping",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "707827092958-14tt8o9qqkkmq260lsjlgk42aninr369.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDKQmUxD3YH6dy8mH8hQS8FvAJkorw-spw"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "707827092958-14tt8o9qqkkmq260lsjlgk42aninr369.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

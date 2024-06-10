@@ -5,6 +5,7 @@ import {Image, View} from 'react-native';
 import {ContainerComponent, TextComponent} from '../../components';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
+import auth from '@react-native-firebase/auth';
 
 const innitialState = {
   username: '',
@@ -15,6 +16,7 @@ const innitialState = {
 
 const SignUpScreen = ({navigation}: any) => {
   const [register, setRegister] = useState(innitialState);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChangeForm = (value: string, key: string) => {
     const item: any = {...register};
@@ -25,7 +27,26 @@ const SignUpScreen = ({navigation}: any) => {
       console.log('Error: value or key is empty');
     }
   };
-  const handleSignUp = async () => {};
+  const handleSignUp = async () => {
+    setIsLoading(true);
+    const {username, email, password, confirmPassword} = register;
+    try {
+      if (email && password && confirmPassword && username) {
+        if (password === confirmPassword) {
+          const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+          const user = userCredential.user;
+          if(user) {
+            console.log('User: ', user);
+          }
+          setIsLoading(false);
+        }
+      }
+    } catch (error) {
+      console.log('Error: ', error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <ContainerComponent>
       <View
@@ -86,7 +107,7 @@ const SignUpScreen = ({navigation}: any) => {
           color="transparent"
           bordered={false}
           placeholder="Email"
-          keyboardType='email-address'
+          keyboardType="email-address"
           affix={
             register.email &&
             register.email.includes('@') &&
@@ -160,7 +181,8 @@ const SignUpScreen = ({navigation}: any) => {
           paddingTop: 20,
         }}>
         <Button
-          title="Login"
+          loading={isLoading}
+          title="Sign Up"
           onPress={handleSignUp}
           color={colors.dark}
           textStyleProps={{
