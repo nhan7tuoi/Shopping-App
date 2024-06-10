@@ -10,6 +10,7 @@ import SwiperOne from "./auth/Swipers/SwiperOne"
 import SwiperTwo from "./auth/Swipers/SwiperTwo"
 import SwiperThree from "./auth/Swipers/SwiperThree"
 import SignUpScreen from "./auth/SignUpScreen"
+import ResultScreen from "./auth/ResultScreen"
 
 
 export {
@@ -24,6 +25,7 @@ export {
     SwiperOne,
     SwiperTwo,
     SwiperThree,
-    SignUpScreen
+    SignUpScreen,
+    ResultScreen
 
 }

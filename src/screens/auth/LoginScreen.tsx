@@ -8,11 +8,15 @@ import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import auth from '@react-native-firebase/auth';
 import {Authen} from '../../utils/handleAuthen';
+import {useDispatch} from 'react-redux';
+import {setAuthData} from '../../redux/reducers/authReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -25,6 +29,21 @@ const LoginScreen = ({navigation}: any) => {
         const user = userCredential.user;
         if (user) {
           console.log('Signed in with: ', user.email);
+          const data = {
+            uid: user.uid,
+              email: user.email ?? '',
+              displayName: user.displayName ?? '',
+              emailVerified: user.emailVerified,
+              photoURL: user.photoURL ?? '',
+              creationTime: user.metadata.creationTime,
+              lastSignInTime: user.metadata.lastSignInTime,
+          }
+          dispatch(
+            setAuthData(data),
+          );
+
+          await AsyncStorage.setItem('user', JSON.stringify(data));
+
           await Authen.UpdateProfile(user);
         }
         setIsLoading(false);
@@ -122,7 +141,12 @@ const LoginScreen = ({navigation}: any) => {
           flexDirection: 'row',
           paddingRight: 24,
         }}>
-        <Button isShadow={false} type="link" onPress={() => {}} title="Forgot Password?" />
+        <Button
+          isShadow={false}
+          type="link"
+          onPress={() => {}}
+          title="Forgot Password?"
+        />
       </View>
       <View
         style={{
@@ -206,7 +230,7 @@ const LoginScreen = ({navigation}: any) => {
         }}>
         <TextComponent text="Don’t have an account?" />
         <Button
-        isShadow={false}
+          isShadow={false}
           type="link"
           title="Sign up"
           onPress={() => {

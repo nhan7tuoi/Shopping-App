@@ -46,7 +46,9 @@ const SignUpScreen = ({navigation}: any) => {
               });
             }
             console.log('Signed in with: ', user.email);
+            
             await Authen.CreateProfile();
+            navigation.navigate('ResultScreen');
           }
           setIsLoading(false);
         }
