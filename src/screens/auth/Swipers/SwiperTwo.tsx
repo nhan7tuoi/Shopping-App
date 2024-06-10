@@ -9,7 +9,7 @@ const SwiperTwo = () => {
     <View style={{flex: 1}}>
       <View style={{flex: 2, padding: 20}}>
         <Image
-          source={require('../../../assets/images/sliders/slider1.png')}
+          source={require('../../../assets/images/sliders/slider2.png')}
           style={{width: '100%', height: '100%', resizeMode: 'contain'}}
         />
       </View>
