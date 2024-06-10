@@ -6,6 +6,7 @@ import {ContainerComponent, TextComponent} from '../../components';
 import {colors} from '../../constants/colors';
 import {fontFamilies} from '../../constants/fontFamilies';
 import auth from '@react-native-firebase/auth';
+import {Authen} from '../../utils/handleAuthen';
 
 const innitialState = {
   username: '',
@@ -33,10 +34,19 @@ const SignUpScreen = ({navigation}: any) => {
     try {
       if (email && password && confirmPassword && username) {
         if (password === confirmPassword) {
-          const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+          const userCredential = await auth().createUserWithEmailAndPassword(
+            email,
+            password,
+          );
           const user = userCredential.user;
-          if(user) {
-            console.log('User: ', user);
+          if (user) {
+            if (username) {
+              await user.updateProfile({
+                displayName: username,
+              });
+            }
+            console.log('Signed in with: ', user.email);
+            await Authen.CreateProfile();
           }
           setIsLoading(false);
         }
@@ -181,6 +191,7 @@ const SignUpScreen = ({navigation}: any) => {
           paddingTop: 20,
         }}>
         <Button
+          isShadow={false}
           loading={isLoading}
           title="Sign Up"
           onPress={handleSignUp}
@@ -204,6 +215,7 @@ const SignUpScreen = ({navigation}: any) => {
         }}>
         <TextComponent text="You have an account" />
         <Button
+        isShadow={false}
           type="link"
           title="Sign In"
           onPress={() => {

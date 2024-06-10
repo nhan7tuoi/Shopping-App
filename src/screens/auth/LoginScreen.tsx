@@ -1,17 +1,40 @@
-import { Button, Input } from '@bsdaoquang/rncomponent';
-import { TickCircle } from 'iconsax-react-native';
-import React, { useState } from 'react';
-import { Image, View } from 'react-native';
+import {Button, Input} from '@bsdaoquang/rncomponent';
+import {TickCircle} from 'iconsax-react-native';
+import React, {useState} from 'react';
+import {Image, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { ContainerComponent, TextComponent } from '../../components';
-import { colors } from '../../constants/colors';
-import { fontFamilies } from '../../constants/fontFamilies';
+import {ContainerComponent, TextComponent} from '../../components';
+import {colors} from '../../constants/colors';
+import {fontFamilies} from '../../constants/fontFamilies';
+import auth from '@react-native-firebase/auth';
+import {Authen} from '../../utils/handleAuthen';
 
-const LoginScreen = ({navigation}:any) => {
+const LoginScreen = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {};
+  const handleLogin = async () => {
+    setIsLoading(true);
+    if (email && password) {
+      try {
+        const userCredential = await auth().signInWithEmailAndPassword(
+          email,
+          password,
+        );
+        const user = userCredential.user;
+        if (user) {
+          console.log('Signed in with: ', user.email);
+          await Authen.UpdateProfile(user);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.log('Error: ', error);
+      }
+    } else {
+      console.log('Error: Email or Password is empty');
+    }
+  };
 
   return (
     <ContainerComponent>
@@ -99,7 +122,7 @@ const LoginScreen = ({navigation}:any) => {
           flexDirection: 'row',
           paddingRight: 24,
         }}>
-        <Button type="link" onPress={() => {}} title="Forgot Password?" />
+        <Button isShadow={false} type="link" onPress={() => {}} title="Forgot Password?" />
       </View>
       <View
         style={{
@@ -107,6 +130,8 @@ const LoginScreen = ({navigation}:any) => {
           paddingTop: 20,
         }}>
         <Button
+          isShadow={false}
+          loading={isLoading}
           title="Login"
           onPress={handleLogin}
           color={colors.dark}
@@ -128,6 +153,7 @@ const LoginScreen = ({navigation}:any) => {
           paddingTop: 20,
         }}>
         <Button
+          isShadow={false}
           color="#3498db"
           title="Continue with Facebook"
           icon={
@@ -145,6 +171,7 @@ const LoginScreen = ({navigation}:any) => {
           paddingTop: 10,
         }}>
         <Button
+          isShadow={false}
           title="Continue with Google"
           icon={<Ionicons name="logo-google" size={24} color={colors.dark} />}
           onPress={handleLogin}
@@ -159,6 +186,7 @@ const LoginScreen = ({navigation}:any) => {
           paddingTop: 10,
         }}>
         <Button
+          isShadow={false}
           title="Continue with Apple"
           icon={<Ionicons name="logo-apple" size={24} color={colors.dark} />}
           onPress={handleLogin}
@@ -178,6 +206,7 @@ const LoginScreen = ({navigation}:any) => {
         }}>
         <TextComponent text="Don’t have an account?" />
         <Button
+        isShadow={false}
           type="link"
           title="Sign up"
           onPress={() => {
