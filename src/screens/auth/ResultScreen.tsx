@@ -1,15 +1,14 @@
-import {Button, Space} from '@bsdaoquang/rncomponent';
-import auth from '@react-native-firebase/auth';
-import {TickCircle} from 'iconsax-react-native';
-import React, {useEffect} from 'react';
-import {View} from 'react-native';
-import {TextComponent} from '../../components';
-import {fontFamilies} from '../../constants/fontFamilies';
-import {colors} from '../../constants/colors';
-import {useDispatch} from 'react-redux';
-import {setAuthData} from '../../redux/reducers/authReducer';
+import { Button } from '@bsdaoquang/rncomponent';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Authen} from '../../utils/handleAuthen';
+import auth from '@react-native-firebase/auth';
+import { TickCircle } from 'iconsax-react-native';
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { TextComponent } from '../../components';
+import { colors } from '../../constants/colors';
+import { fontFamilies } from '../../constants/fontFamilies';
+import { setAuthData } from '../../redux/reducers/authReducer';
 
 const ResultScreen = ({navigation, route}: any) => {
   const user = auth().currentUser;
