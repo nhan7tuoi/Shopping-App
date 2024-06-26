@@ -34,7 +34,7 @@ const OffersList = (props: Props) => {
     <>
       <FlatList
       style={{
-        paddingVertical: 16,
+        paddingLeft:16
       }}
         horizontal
         data={offers}

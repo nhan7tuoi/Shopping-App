@@ -1,31 +1,37 @@
-import {View, Text, StatusBar, Pressable, Platform} from 'react-native';
-import React from 'react';
-import SvgComponent from '../../components/SvgComponent';
+import {Button, Input, Space} from '@bsdaoquang/rncomponent';
 import auth from '@react-native-firebase/auth';
+import {HambergerMenu, SearchNormal1, Setting4} from 'iconsax-react-native';
+import React, {useState} from 'react';
+import {Platform, Pressable, ScrollView, StatusBar, View} from 'react-native';
 import {
+  ArrivalsProduct,
   AvatarComponent,
   ContainerComponent,
+  PopularProduct,
   TextComponent,
 } from '../../components';
-import {Button, Input, Section, Space} from '@bsdaoquang/rncomponent';
-import {
-  HambergerMenu,
-  SearchNormal,
-  SearchNormal1,
-  Setting4,
-} from 'iconsax-react-native';
 import {colors} from '../../constants/colors';
 import {globalStyles} from '../../styles/globalSyles';
 import OffersList from './components/OffersList';
+import CategoriesList from './components/CategoriesList';
 
 const HomeScreen = () => {
   const user = auth().currentUser;
+
   return (
-    <ContainerComponent>
-      <StatusBar translucent backgroundColor={'transparent'} barStyle={'dark-content'}/>
-      <View style={[globalStyles.section,{
-        paddingTop: Platform.OS === 'android' ? 48 : 0,
-      }]}>
+    <ContainerComponent isScroll={false}>
+      <StatusBar
+        translucent
+        backgroundColor={'transparent'}
+        barStyle={'dark-content'}
+      />
+      <View
+        style={[
+          globalStyles.section,
+          {
+            paddingTop: Platform.OS === 'android' ? 48 : 0,
+          },
+        ]}>
         <View
           style={[
             {
@@ -49,37 +55,49 @@ const HomeScreen = () => {
           <AvatarComponent />
         </View>
       </View>
-      <View style={[globalStyles.section]}>
-        <TextComponent type="title" text="Wellcome," size={24} />
-        <TextComponent text="Our fashion app" size={18} color={colors.gray2} />
-      </View>
-      <View style={[globalStyles.section]}>
-        <View style={{flexDirection: 'row'}}>
-          <View style={{flex: 1}}>
-            <Input
-              placeholder="Search"
-              prefix={
-                <SearchNormal1
-                  variant="TwoTone"
-                  size={24}
-                  color={colors.gray2}
-                />
-              }
-              onChange={() => {}}
-              value=""
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <>
+          <View style={[globalStyles.section]}>
+            <TextComponent type="title" text="Wellcome," size={24} />
+            <TextComponent
+              text="Our fashion app"
+              size={18}
+              color={colors.gray2}
             />
           </View>
-          <Space width={12} />
-          <Button
-            onPress={() => {}}
-            isShadow={false}
-            color="black"
-            icon={<Setting4 size={24} color={colors.white} />}
-            styles={{width: 48, height: 48}}
-          />
-        </View>
-      </View>
-      <OffersList />
+          <View style={[globalStyles.section]}>
+            <View style={{flexDirection: 'row'}}>
+              <View style={{flex: 1}}>
+                <Input
+                  placeholder="Search"
+                  prefix={
+                    <SearchNormal1
+                      variant="TwoTone"
+                      size={24}
+                      color={colors.gray2}
+                    />
+                  }
+                  onChange={() => {}}
+                  value=""
+                />
+              </View>
+              <Space width={12} />
+              <Button
+                onPress={() => {}}
+                isShadow={false}
+                color="black"
+                icon={<Setting4 size={24} color={colors.white} />}
+                styles={{width: 48, height: 48}}
+              />
+            </View>
+          </View>
+        </>
+        <OffersList />
+        <CategoriesList />
+        <ArrivalsProduct />
+        <PopularProduct />
+        <View style={{height: Platform.OS === 'ios' ? 80 : 130}} />
+      </ScrollView>
     </ContainerComponent>
   );
 };

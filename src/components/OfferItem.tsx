@@ -1,13 +1,11 @@
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {OfferModel} from '../models/offerModel';
-import firestore from '@react-native-firebase/firestore';
-import {FileModel} from '../models/fileModel';
-import {sizes} from '../constants/sizes';
+import { Button } from '@bsdaoquang/rncomponent';
+import React from 'react';
+import { ImageBackground, StyleSheet, View } from 'react-native';
+import { colors } from '../constants/colors';
+import { fontFamilies } from '../constants/fontFamilies';
+import { sizes } from '../constants/sizes';
+import { OfferModel } from '../models/offerModel';
 import TextComponent from './TextComponent';
-import {fontFamilies} from '../constants/fontFamilies';
-import {colors} from '../constants/colors';
-import {Button} from '@bsdaoquang/rncomponent';
 
 type Props = {
   item: OfferModel;
@@ -15,24 +13,6 @@ type Props = {
 
 const OfferItem = (props: Props) => {
   const {item} = props;
-  const [fileInfo, setFileInfo] = useState<FileModel>();
-
-  useEffect(() => {
-    if (item.files && item.files.length > 0) {
-      handleGetFileInfo(item.files[0]);
-    }
-  }, [item]);
-
-  const handleGetFileInfo = async (id: string) => {
-    try {
-      const snap = await firestore().collection('files').doc(id).get();
-      if (snap.exists) {
-        setFileInfo(snap.data() as FileModel);
-      }
-    } catch (error) {
-      console.log('handleGetFileInfo -> error', error);
-    }
-  };
 
   const renderOffer = () => (
     <>
@@ -53,7 +33,7 @@ const OfferItem = (props: Props) => {
       <TextComponent
         text={`With code : ${item.code}`}
         size={16}
-        color={colors.desciption}
+        color={colors.white}
         font={fontFamilies.poppinsBold}
         styles={{
           paddingVertical: 14,
@@ -76,9 +56,9 @@ const OfferItem = (props: Props) => {
     </>
   );
 
-  return fileInfo ? (
+  return (
     <ImageBackground
-      source={{uri: fileInfo.downloadUrl}}
+      source={{uri: item.imageUrl}}
       style={styles.container}
       imageStyle={{
         flex: 1,
@@ -89,10 +69,6 @@ const OfferItem = (props: Props) => {
       }}>
       {renderOffer()}
     </ImageBackground>
-  ) : (
-    <View style={[styles.container, {backgroundColor: 'gray'}]}>
-      {renderOffer()}
-    </View>
   );
 };
 

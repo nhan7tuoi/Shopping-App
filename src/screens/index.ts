@@ -11,6 +11,8 @@ import SwiperTwo from "./auth/Swipers/SwiperTwo"
 import SwiperThree from "./auth/Swipers/SwiperThree"
 import SignUpScreen from "./auth/SignUpScreen"
 import ResultScreen from "./auth/ResultScreen"
+import ProductDetail from "./home/ProductDetail"
+import CategoriesList from "./home/components/CategoriesList"
 
 
 export {
@@ -26,6 +28,8 @@ export {
     SwiperTwo,
     SwiperThree,
     SignUpScreen,
-    ResultScreen
+    ResultScreen,
+    ProductDetail,
+    CategoriesList
 
 }

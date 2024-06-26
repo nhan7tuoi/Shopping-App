@@ -7,4 +7,5 @@ export interface OfferModel {
     files: string[];
     startDate: number;
     endDate: number;
+    imageUrl: string;
     }
