@@ -1,3 +1,5 @@
+import { FileModel } from "./fileModel";
+
 export interface ProductModel {
   id: string;
   title: string;
@@ -10,4 +12,15 @@ export interface ProductModel {
   rate: string;
   createdAt: number;
   updatedAt: number;
+}
+
+export interface SubProductModel {
+  color: string;
+  files: FileModel[];
+  id: string;
+  imageUrl: string;
+  price: string;
+  productId: string;
+  size: string[];
+  quantity:number;
 }

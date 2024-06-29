@@ -7,11 +7,12 @@ import { fontFamilies } from '../constants/fontFamilies';
 import { productRef } from '../firebase/firebaseConfig';
 import { ProductModel } from '../models/productModel';
 import TextComponent from './TextComponent';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = {};
 
 const PopularProduct = () => {
   const [products, setProducts] = useState<ProductModel[]>([]);
+  const navigation: any = useNavigation();
 
   useEffect(() => {
     productRef
@@ -61,7 +62,9 @@ const PopularProduct = () => {
 
       {products.length > 0 &&
         products.map((item, index) => (
-          <View key={item.id}>
+          <Pressable onPress={()=>{
+            navigation.navigate('ProductDetail', {id: item.id});
+          }} key={item.id}>
             <Card
               styles={{
                 borderRadius: 10,
@@ -100,7 +103,7 @@ const PopularProduct = () => {
                 />
               </Row>
             </Card>
-          </View>
+          </Pressable>
         ))}
     </View>
   );

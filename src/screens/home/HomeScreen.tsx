@@ -1,7 +1,7 @@
 import {Button, Input, Space} from '@bsdaoquang/rncomponent';
 import auth from '@react-native-firebase/auth';
 import {HambergerMenu, SearchNormal1, Setting4} from 'iconsax-react-native';
-import React, {useState} from 'react';
+import React, { useEffect } from 'react';
 import {Platform, Pressable, ScrollView, StatusBar, View} from 'react-native';
 import {
   ArrivalsProduct,
@@ -12,11 +12,19 @@ import {
 } from '../../components';
 import {colors} from '../../constants/colors';
 import {globalStyles} from '../../styles/globalSyles';
-import OffersList from './components/OffersList';
 import CategoriesList from './components/CategoriesList';
+import OffersList from './components/OffersList';
+import {HandleNotifycation} from '../../utils/handleNotifycation';
+import message from '@react-native-firebase/messaging';
 
 const HomeScreen = () => {
   const user = auth().currentUser;
+
+ useEffect(() => {
+    // message().onMessage(async (remoteMessage) => {
+    //   console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    // });
+  }, []);
 
   return (
     <ContainerComponent isScroll={false}>
@@ -55,6 +63,20 @@ const HomeScreen = () => {
           <AvatarComponent />
         </View>
       </View>
+
+      {/* <Button
+        title="test"
+        onPress={() =>
+          HandleNotifycation.pushNotifycation('Y0RVjfiIiDMvLRPBfulWcP0Jqb73', {
+            title: 'Test',
+            body: 'Test',
+            data: {
+              id: '1',
+            },
+          })
+        }
+      /> */}
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <>
           <View style={[globalStyles.section]}>

@@ -49,6 +49,7 @@ const LoginScreen = ({navigation}: any) => {
         setIsLoading(false);
       } catch (error) {
         console.log('Error: ', error);
+        setIsLoading(false);
       }
     } else {
       console.log('Error: Email or Password is empty');
