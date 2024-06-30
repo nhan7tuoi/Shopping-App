@@ -13,6 +13,7 @@ import SignUpScreen from "./auth/SignUpScreen"
 import ResultScreen from "./auth/ResultScreen"
 import ProductDetail from "./home/ProductDetail"
 import CategoriesList from "./home/components/CategoriesList"
+import RatingScreen from "./home/RatingScreen"
 
 
 export {
@@ -30,6 +31,7 @@ export {
     SignUpScreen,
     ResultScreen,
     ProductDetail,
-    CategoriesList
+    CategoriesList,
+    RatingScreen
 
 }

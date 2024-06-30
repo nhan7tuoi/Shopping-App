@@ -13,6 +13,10 @@ import {colors} from '../../constants/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {fontFamilies} from '../../constants/fontFamilies';
 import {Add, Minus} from 'iconsax-react-native';
+import {Rating} from 'react-native-ratings';
+import RatingComponent from './components/RatingComponent';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToCart, cartSelector} from '../../redux/reducers/cartReducer';
 
 const ProductDetail = ({navigation, route}: any) => {
   const {id} = route.params;
@@ -22,6 +26,9 @@ const ProductDetail = ({navigation, route}: any) => {
     useState<SubProductModel>();
   const [count, setCount] = useState<number>(1);
   const [sizeSelected, setSizeSelected] = useState<string>('S');
+
+  const cartData = useSelector(cartSelector);
+  const dispatch = useDispatch();
 
   useStatusBar('light-content');
 
@@ -62,8 +69,60 @@ const ProductDetail = ({navigation, route}: any) => {
     }
   };
 
+  const handleAddToCart = (item: SubProductModel) => {
+    const data = {
+      id: item.id,
+      title: productDetail?.title,
+      price: item.price,
+      quantity: count,
+      size: sizeSelected,
+      color: item.color,
+      files: item.files,
+      imageUrl: item.imageUrl,
+    };
+    const sub: any = {...subProductSelected};
+    item.quantity = subProductSelected
+      ? subProductSelected.quantity - count
+      : 0;
+    dispatch(addToCart(data));
+    setSubProductSelected(sub);
+  };
+
+  const renderCartButon = () => {
+    const itemCart = cartData.findIndex(
+      (item: any) => item.id === subProductSelected?.id,
+    );
+
+    return (
+      subProductSelected && (
+        <Button
+          title={itemCart !== -1 ? 'Checkout' : 'Add to cart'}
+          icon={
+            <MaterialCommunityIcons
+              name="cart-plus"
+              size={24}
+              color={colors.white}
+            />
+          }
+          onPress={() => {
+            itemCart !== -1
+              ? navigation.navigate('CartScreen')
+              : handleAddToCart(subProductSelected as SubProductModel);
+          }}
+          isShadow={false}
+          styles={{
+            height: 55,
+            borderRadius: 25,
+            backgroundColor: colors.dark,
+          }}
+          textStyleProps={{color: colors.white}}
+        />
+      )
+    );
+  };
+
   return (
-    <View style={globalStyles.conatiner}>
+    <View style={[globalStyles.conatiner, {backgroundColor: colors.white}]}>
       <View style={globalStyles.conatiner}>
         <View
           style={[
@@ -94,7 +153,7 @@ const ProductDetail = ({navigation, route}: any) => {
               />
             </Pressable>
 
-            <Badge show={false}>
+            <Badge count={cartData.length}>
               <Pressable
                 style={{
                   marginTop: 4,
@@ -122,12 +181,15 @@ const ProductDetail = ({navigation, route}: any) => {
       </View>
       <ScrollView style={globalStyles.conatiner}>
         {productDetail && (
-          <View style={[globalStyles.section, {paddingVertical: 12}]}>
+          <View
+            style={[
+              globalStyles.section,
+              {paddingVertical: 12, backgroundColor: colors.white},
+            ]}>
             <View
               style={[
                 {
                   flexDirection: 'row',
-
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 },
@@ -144,6 +206,7 @@ const ProductDetail = ({navigation, route}: any) => {
                   size={16}
                   color={colors.desciption}
                 />
+                <RatingComponent id={id} />
               </View>
 
               <View>
@@ -217,6 +280,7 @@ const ProductDetail = ({navigation, route}: any) => {
                       subProductSelected.size.length > 0 &&
                       subProductSelected.size.map((item, index) => (
                         <Button
+                          key={index}
                           color={
                             item === sizeSelected ? colors.dark : undefined
                           }
@@ -256,6 +320,7 @@ const ProductDetail = ({navigation, route}: any) => {
                 {subProducts.length > 0 &&
                   subProducts.map((item, index) => (
                     <Pressable
+                      key={index}
                       onPress={() => {}}
                       style={{
                         width: 20,
@@ -294,40 +359,23 @@ const ProductDetail = ({navigation, route}: any) => {
         )}
       </ScrollView>
       <View style={[globalStyles.section]}>
-        <View style={{
-          flexDirection:'row',
-          justifyContent:'space-between',
-
-        }}>
-          <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{flex: 1}}>
             <TextComponent text="Total price:" size={12} color={colors.gray2} />
             <TextComponent
-              text={`$123.00`}
+              text={`$${
+                count *
+                parseFloat(subProductSelected ? subProductSelected.price : '0')
+              }`}
               size={20}
               font={fontFamilies.poppinsBold}
             />
           </View>
-          <View style={{flex:1,paddingLeft:70}}>
-            <Button
-              title="Add to cart"
-              icon={
-                <MaterialCommunityIcons
-                  name="cart-plus"
-                  size={24}
-                  color={colors.white}
-                />
-              
-              }
-              onPress={() => {}}
-              isShadow={false}
-              styles={{
-                height: 55,
-                borderRadius: 25,
-                backgroundColor: colors.dark,
-              }}
-              textStyleProps={{color: colors.white}}
-            />
-          </View>
+          <View style={{flex: 2.5, paddingLeft: 70}}>{renderCartButon()}</View>
         </View>
       </View>
     </View>
