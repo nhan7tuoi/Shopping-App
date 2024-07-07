@@ -14,7 +14,7 @@ import { globalStyles } from '../../styles/globalSyles';
 const CartScreen = () => {
   const cartData: CartItem[] = useSelector(cartSelector);
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation:any = useNavigation();
 
 
 
@@ -155,7 +155,7 @@ const CartScreen = () => {
               iconPosition='right'
               icon={<ArrowRight2 size={20} color={colors.white} />}
               onPress={() => {
-                
+                navigation.navigate('PaymentScreen');
               }}
             />
           </View>

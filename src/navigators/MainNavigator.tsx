@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';
-import { CartScreen, ProductDetail, RatingScreen } from '../screens';
+import { AddPayment, CartScreen, PaymentScreen, ProductDetail, RatingScreen } from '../screens';
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
@@ -12,6 +12,8 @@ const MainNavigator = () => {
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="RatingScreen" component={RatingScreen} />
       <Stack.Screen name="CartScreen" component={CartScreen} />
+      <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+      <Stack.Screen name="AddPayment" component={AddPayment} />
     </Stack.Navigator>
   );
 };

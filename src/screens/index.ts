@@ -15,6 +15,8 @@ import ProductDetail from "./home/ProductDetail"
 import CategoriesList from "./home/components/CategoriesList"
 import RatingScreen from "./home/RatingScreen"
 import MyOrderScreen from "./cart/MyOrderScreen"
+import PaymentScreen from "./cart/PaymentScreen"
+import AddPayment from "./cart/AddPayment"
 
 
 export {
@@ -34,6 +36,8 @@ export {
     ProductDetail,
     CategoriesList,
     RatingScreen,
-    MyOrderScreen
+    MyOrderScreen,
+    PaymentScreen,
+    AddPayment
 
 }
