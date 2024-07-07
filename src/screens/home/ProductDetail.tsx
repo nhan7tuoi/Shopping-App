@@ -178,7 +178,7 @@ const ProductDetail = ({navigation, route}: any) => {
                 alignItems: 'center',
               }}
               onPress={() => {
-                navigation.goBack();
+                navigation.navigate('CartScreen');
               }}>
               <MaterialCommunityIcons
                 name="shopping"

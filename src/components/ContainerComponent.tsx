@@ -17,7 +17,8 @@ const ContainerComponent = (props: Props) => {
     <SafeAreaView style={[globalStyles.conatiner]}>
       {back || right || left || title &&
       <View style={{flexDirection:'row'}}>
- 
+
+
       </View> 
       }
 
