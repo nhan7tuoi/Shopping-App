@@ -5,6 +5,7 @@ import {SplashScreen} from '../screens';
 import AuthNavigator from './AuthNavigator';
 import MainNavigator from './MainNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addToCart, syncCartLocal } from '../redux/reducers/cartReducer';
 
 const Router = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -18,6 +19,7 @@ const Router = () => {
 
   const getData = async () => {
     await getAuthData();
+    await getCartData();
     setIsWelcome(false);
   };
 
@@ -28,6 +30,15 @@ const Router = () => {
       dispatch(setAuthData(data));
     }
   };
+
+  const getCartData = async () => {
+    const res = await AsyncStorage.getItem('cartData');
+    if (res) {
+      const data = JSON.parse(res);
+      dispatch(syncCartLocal(data));
+    }
+    // await AsyncStorage.removeItem('cartData');
+  }
 
   return isWelcome ? (
     <SplashScreen />

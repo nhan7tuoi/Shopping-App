@@ -3,6 +3,7 @@ import { Image, View } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { colors } from '../../../constants/colors';
 import { FileModel } from '../../../models/fileModel';
+import { sizes } from '../../../constants/sizes';
 
 type Props = {
   files: FileModel[];
@@ -13,12 +14,14 @@ const ImageSwiper = (props: Props) => {
 
   return (
     <Swiper
+    style={{height: sizes.height * 0.5}}
       dotColor="red"
       activeDotColor="white"
+      paginationStyle={{bottom: 35}}
       activeDot={
         <View
           style={{
-            width: 14,
+            width: 14, 
             height: 14,
             borderRadius: 7,
             borderColor: colors.dark,
@@ -32,7 +35,6 @@ const ImageSwiper = (props: Props) => {
               width: 8,
               height: 8,
               borderRadius: 4,
-              backgroundColor: 'red',
             }}
           />
         </View>
@@ -43,6 +45,7 @@ const ImageSwiper = (props: Props) => {
             key={index}
             source={{uri: file.downloadUrl}}
             style={{width: '100%', flex: 1}}
+            resizeMode='contain'
           />
         ))}
     </Swiper>

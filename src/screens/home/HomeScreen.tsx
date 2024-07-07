@@ -1,8 +1,8 @@
-import {Button, Input, Space} from '@bsdaoquang/rncomponent';
+import { Button, Input, Space } from '@bsdaoquang/rncomponent';
 import auth from '@react-native-firebase/auth';
-import {HambergerMenu, SearchNormal1, Setting4} from 'iconsax-react-native';
+import { HambergerMenu, SearchNormal1, Setting4 } from 'iconsax-react-native';
 import React, { useEffect } from 'react';
-import {Platform, Pressable, ScrollView, StatusBar, View} from 'react-native';
+import { Platform, Pressable, ScrollView, StatusBar, View } from 'react-native';
 import {
   ArrivalsProduct,
   AvatarComponent,
@@ -10,15 +10,16 @@ import {
   PopularProduct,
   TextComponent,
 } from '../../components';
-import {colors} from '../../constants/colors';
-import {globalStyles} from '../../styles/globalSyles';
+import { colors } from '../../constants/colors';
+import { globalStyles } from '../../styles/globalSyles';
+import { useStatusBar } from '../../utils/useStatusBar';
 import CategoriesList from './components/CategoriesList';
 import OffersList from './components/OffersList';
-import {HandleNotifycation} from '../../utils/handleNotifycation';
-import message from '@react-native-firebase/messaging';
 
 const HomeScreen = () => {
   const user = auth().currentUser;
+
+  useStatusBar('light-content');
 
  useEffect(() => {
     // message().onMessage(async (remoteMessage) => {
